@@ -35,7 +35,7 @@ def solveSystem(f1, f2, L, d, phi1, phi2):
     vecSolution= sp.Matrix([r2_i_y_value, r2_i_alpha_value])
     r_apres_lentille = M2*M1*vecSolution
 
-    print(r_apres_lentille)
+    print(r_apres_lentille) ######### ENELEVER CE PRINT SI NECESSAIRE
 
     deltaz = abs(2 * r2_i_y_value / math.tan(r2_i_alpha_value)) #Calcul de la résolution avec l'angle et la heuteur
     return deltaz
