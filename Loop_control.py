@@ -25,8 +25,8 @@ for vari in variables_list:
                 y_plot.append(solveSystem(f, f, L, d/1000, phi1, phi2))
             plt.plot(d_list,y_plot,label=f"f={f} mm")
         plt.legend()
-        plt.xlabel("l'ouverture du pinhole d en $\\mu m$")
-        plt.ylabel("$\\delta_z$")
+        plt.xlabel("d $\\mu m$")
+        plt.ylabel("$\\delta_z$ (mm)")
         plt.savefig("Fig_d")
     elif vari=="f":
         plt.close()
@@ -40,8 +40,8 @@ for vari in variables_list:
                 y_plot.append(solveSystem(f, f, L, d/1000, phi1, phi2))
             plt.plot(f_list,y_plot,label=f"d={d} $\\mu m$ ")
         plt.legend()
-        plt.xlabel("la longueur focale f des 2 lentilles en mm")
-        plt.ylabel("$\\delta_z$")
+        plt.xlabel("$f_1=f_2=f$ (mm)")
+        plt.ylabel("$\\delta_z$ (mm)")
         plt.savefig("Fig_f")
     elif vari=="L":
         plt.close()
@@ -55,8 +55,8 @@ for vari in variables_list:
                 y_plot.append(solveSystem(f, f, L, d/1000, phi1, phi2))
             plt.plot(L_list,y_plot,label=f"f={f} mm")
         plt.legend()
-        plt.xlabel("La distance L entre les deux lentilles en mm ")
-        plt.ylabel("$\\delta_z$")
+        plt.xlabel("L (mm) ")
+        plt.ylabel("$\\delta_z$  (mm)")
         plt.savefig("Fig_L")
 
 
