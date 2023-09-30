@@ -19,7 +19,7 @@ def solveSystem(f1, f2, L, d, phi1, phi2):
     #la fonction pour accélérer le temps de calcul si d et f2 ne varient pas
     r2_f_alpha = -np.arctan((phi2 - d) /(2*f2))
     r2_f_y = d/2
-    print(M_tot) # Imprime la matrice totale pour vérification
+    # print(M_tot) # Imprime la matrice totale pour vérification
     
     r2_i_y, r2_i_alpha = sp.symbols('r2_i_y r2_i_alpha') #Définition des variables à résoudre
     r2_i = sp.Matrix([r2_i_y, r2_i_alpha])
@@ -40,14 +40,14 @@ def solveSystem(f1, f2, L, d, phi1, phi2):
     deltaz = abs(2 * r2_i_y_value / math.tan(r2_i_alpha_value)) #Calcul de la résolution avec l'angle et la heuteur
     return deltaz
 
-f1 = 35  # (mm)
-f2 = 35  # (mm)
-L = 35 # (mm)
-d = 0.075  # (mm)
-phi1 = 25.4  # (mm)
-phi2 = 25.4  # (mm)
+# f1 = 35  # (mm)
+# f2 = 35  # (mm)
+# L = 35 # (mm)
+# d = 0.075  # (mm)
+# phi1 = 25.4  # (mm)
+# phi2 = 25.4  # (mm)
 
-print(solveSystem(f1, f2, L, d, phi1, phi2))
+# print(solveSystem(f1, f2, L, d, phi1, phi2))
 
 
 
