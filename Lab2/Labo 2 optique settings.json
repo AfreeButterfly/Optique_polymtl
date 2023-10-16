@@ -1,0 +1,20 @@
+{
+  "Model": "CS165MU",
+  "ExposureTime_us": "29957",
+  "Gain": "150",
+  "BlackLevel": "1",
+  "ROIOriginX_pixels": "0",
+  "ROIOriginY_pixels": "0",
+  "ROIWidth_pixels": "1440",
+  "ROIHeight_pixels": "1080",
+  "BinX": "1",
+  "BinY": "1",
+  "FramesPerTrigger_zeroForUnlimited": "0",
+  "IsFrameRateControlEnabled": "True",
+  "FrameRateControlValue_fps": "0.010001",
+  "IsLEDOn": "True",
+  "MaintainAspectRatioCheckBox": "False",
+  "FramesToAverage": "1",
+  "ColorBlackLevel": "1",
+  "IsAutoExposureChecked": "False"
+}
