@@ -1,54 +1,58 @@
-# ######################### Code pour les matrices ############################
 import numpy as np
-import matplotlib.pyplot as plt
-import math
 import sympy as sp
+import matplotlib.pyplot as plt
 
+f3 = sp.symbols('f3')
+L2 = sp.symbols('L2')
+t2 = sp.symbols('t2')
+t3 = sp.symbols('t3')
+f2 = sp.symbols('f2')
+f1 = sp.symbols('f1')
 
+# I define a function for the translation matrix
+def Mt(d):
+    '''
+        Translation ray transfer matrix
+    '''
+    M = np.array([[1, d],
+                  [0, 1]])
+    return M
 
+# I define a function for the thin lens matrix
+def Ml(f):
+    '''
+        Thin lens ray transfer matrix
+    '''
+    M = np.array([[1, 0],
+                  [-1/f, 1]])
+    return M
 
-def solveSystem(f1, f2, L, d, phi1, phi2):
-    # Définition des matrices du système
-    M1 = sp.Matrix([[1, f1], [0, 1]])
-    M2 = sp.Matrix([[1, 0], [-1/f1, 1]])
-    M3 = sp.Matrix([[1, L], [0, 1]])
-    M4 = sp.Matrix([[1, 0], [-1/f2, 1]])
-    M5 = sp.Matrix([[1, f2], [0, 1]])
-    M_tot = M5 * M4 * M3 * M2 * M1  # Calcul de la matrice totale
-    #Calcul du vecteur du rayon 2 final (au sténopé), cette étape pourrait être mise hors de 
-    #la fonction pour accélérer le temps de calcul si d et f2 ne varient pas
-    r2_f_alpha = -np.arctan((phi2 - d) /(2*f2))
-    r2_f_y = d/2
-    # print(M_tot) # Imprime la matrice totale pour vérification
+# I create a function for the total system matrix M
+def M_system(t2, t3, L):
+    '''
+        Computes the total system transfer matrix
+    '''
+    M = Ml(f=75)@Mt(d=t2)@Ml(f=-75)@Mt(d=t3)@Ml(f=150)@Mt(d=L-t3-t2)
+    return M
+
+L = 200
+print(M_system(t2,t3, L))
+
+#x = sp.symbols('x') # symbolize x
+t2range = np.linspace(25, 75) # range of values for s
+t3_solutions = [] # empty array for solutions
+
+# Iteratively solve the problem
+for t2 in t2range:
+    Mtot = M_system(t2, t3, L) # compute the system's matrix
+    B = Mtot[0, 1] # get B(x) from system's matrix
+    t3_sol = sp.solve(B) # Solve B(x) = 0 Carefull, there may be many solutions...
+    t3_solutions.append(sp.solve(B)) # add solution to list
     
-    r2_i_y, r2_i_alpha = sp.symbols('r2_i_y r2_i_alpha') #Définition des variables à résoudre
-    r2_i = sp.Matrix([r2_i_y, r2_i_alpha])
     
-    eq = sp.Eq(M_tot * r2_i, sp.Matrix([r2_f_y, r2_f_alpha])) #Définition de l'équation à résoudre
-    solution = sp.solve(eq, (r2_i_y, r2_i_alpha)) # Solution de l'angle et hauteur du rayon 2 initial
-    r2_i_alpha_value = solution[r2_i_alpha] # Extrait l'angle du vecteur solution
-    r2_i_y_value = solution[r2_i_y] #Extrait la hauteur du vecteur solution
-
-    #VÉRIFIER LE CALCUL DE DELTAZ (ca speut que j'ai écrit de la merde, mais normalement ca devrait être bon)
-    #*** Le calcul de deltaz suppose une résolution symétrique centrée sur le plan focal
-
-    # vecSolution= sp.Matrix([r2_i_y_value, r2_i_alpha_value])
-    # r_apres_lentille = M2*M1*vecSolution
-
-    # print(r_apres_lentille) ######### ENLEVER CE PRINT SI NECESSAIRE
-
-    deltaz = abs(2 * r2_i_y_value / math.tan(r2_i_alpha_value)) #Calcul de la résolution avec l'angle et la heuteur
-    return deltaz
-
-# f1 = 35  # (mm)
-# f2 = 35  # (mm)
-# L = 35 # (mm)
-# d = 0.075  # (mm)
-# phi1 = 25.4  # (mm)
-# phi2 = 25.4  # (mm)
-
-# print(solveSystem(f1, f2, L, d, phi1, phi2))
-
-
-
-
+# plot results
+plt.figure(dpi=96)
+plt.plot(t2range, t3_solutions, '.-')
+plt.xlabel('t2 [mm]')
+plt.ylabel('t3 [mm]')
+plt.show()
