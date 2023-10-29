@@ -21,8 +21,8 @@ for vari in variables_list:
             print(f)
             L=f
             y_plot=[]
-            for d in d_list:
-                y_plot.append(solveSystem(f, f, L, d/1000, phi1, phi2))
+            for taille_pixel in d_list:
+                y_plot.append(solveSystem(f, f, L, taille_pixel/1000, phi1, phi2))
             plt.plot(d_list,y_plot,label=f"f={f} mm")
         plt.legend()
         plt.xlabel("d $\\mu m$")
@@ -32,27 +32,27 @@ for vari in variables_list:
         plt.close()
         f_list=np.linspace(10,150,200)   #mm
         d_list=[50 ,75 ,100 ,150]  #micrometre
-        for d in d_list:
-            print(d)
+        for taille_pixel in d_list:
+            print(taille_pixel)
             y_plot=[]
             for f in f_list:
                 L=f
-                y_plot.append(solveSystem(f, f, L, d/1000, phi1, phi2))
-            plt.plot(f_list,y_plot,label=f"d={d} $\\mu m$ ")
+                y_plot.append(solveSystem(f, f, L, taille_pixel/1000, phi1, phi2))
+            plt.plot(f_list,y_plot,label=f"d={taille_pixel} $\\mu m$ ")
         plt.legend()
         plt.xlabel("$f_1=f_2=f$ (mm)")
         plt.ylabel("$\\delta_z$ (mm)")
         plt.savefig("Fig_f")
     elif vari=="L":
         plt.close()
-        d=75
+        taille_pixel=75
         f_list=[25,35,50,100,150]
         L_list=np.linspace(0,1000,200)
         for f in f_list:
             print(f)
             y_plot=[]
             for L in L_list:
-                y_plot.append(solveSystem(f, f, L, d/1000, phi1, phi2))
+                y_plot.append(solveSystem(f, f, L, taille_pixel/1000, phi1, phi2))
             plt.plot(L_list,y_plot,label=f"f={f} mm")
         plt.legend()
         plt.xlabel("L (mm) ")
